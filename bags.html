@@ -15,10 +15,13 @@
 <body class="p-6">
 
     <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-            <h1 class="text-3xl font-bold">আমাদের এক্সক্লুসিভ কালেকশন</h1>
-            <input type="text" id="searchBar" onkeyup="filterProducts()" placeholder="🔍 প্রোডাক্ট সার্চ করুন..." class="w-full md:w-64 p-3 bg-gray-900 border border-gray-700 rounded-lg text-white">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">আমাদের এক্সক্লুসিভ ব্যাগ কালেকশন</h1>
             <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-4 py-2 rounded text-sm">Control Gate 🔐</button>
+        </div>
+
+        <div class="mb-10">
+            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="🔍 আপনার প্রিয় ব্যাগটি খুঁজুন..." class="w-full p-4 bg-[#0d1423] border border-indigo-900/50 rounded-xl text-white outline-none focus:border-indigo-500">
         </div>
 
         <div id="product-list" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
@@ -47,10 +50,10 @@
         async function loadProducts() {
             const res = await fetch(API);
             allProducts = await res.json();
-            render(allProducts);
+            renderProducts(allProducts);
         }
 
-        function render(data) {
+        function renderProducts(data) {
             const list = document.getElementById('product-list');
             const isAdmin = !document.getElementById('admin-panel').classList.contains('hidden');
             list.innerHTML = '';
@@ -73,19 +76,20 @@
             });
         }
 
+        // সার্চ ফিল্টার ফাংশন
         function filterProducts() {
-            const query = document.getElementById('searchBar').value.toLowerCase();
+            const query = document.getElementById('search-input').value.toLowerCase();
             const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
-            render(filtered);
+            renderProducts(filtered);
         }
 
         function order(name, price) {
-            const msg = `হ্যালো! আমি এই প্রোডাক্টটি অর্ডার করতে চাই: ${name}, দাম: ${price} টাকা। দয়া করে অর্ডার প্রসেসটি জানান।`;
+            const msg = `হ্যালো! আমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই: ${name}, মূল্য: ${price} টাকা। দয়া করে প্রসেসটি জানান।`;
             window.open(`https://wa.me/8801611341846?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         async function deleteP(id) {
-            if(confirm('এটি ডিলিট করতে চান?')) {
+            if(confirm('ডিলিট করতে চান?')) {
                 await fetch(`${API}/${id}`, {method: 'DELETE'});
                 await loadProducts();
             }
@@ -111,13 +115,13 @@
             const p = prompt("অ্যাডমিন পাসওয়ার্ড:");
             if(p === "trend744") {
                 document.getElementById('admin-panel').classList.remove('hidden');
-                render(allProducts);
+                renderProducts(allProducts);
             } else alert("ভুল পাসওয়ার্ড!");
         }
 
         function closeAdmin() {
             document.getElementById('admin-panel').classList.add('hidden');
-            render(allProducts);
+            renderProducts(allProducts);
         }
 
         loadProducts();
