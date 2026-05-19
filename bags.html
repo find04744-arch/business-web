@@ -149,9 +149,19 @@
             return await response.json();
         }
 
+        async function deleteProduct(id) {
+            if (confirm("আপনি কি নিশ্চিত এই প্রোডাক্টটি ডিলিট করতে চান?")) {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                alert("প্রোডাক্টটি ডিলিট করা হয়েছে!");
+                displayProducts();
+            }
+        }
+
         async function displayProducts() {
             const products = await fetchProducts();
             const productList = document.getElementById('product-list');
+            const isAdmin = !document.getElementById('admin-master-panel').classList.contains('hidden');
+            
             productList.innerHTML = '';
             
             products.reverse().forEach(product => {
@@ -163,17 +173,24 @@
                         <div class="p-6">
                             <h3 class="text-lg font-bold text-white mb-2">${product.name}</h3>
                             <p class="text-xl font-black text-indigo-400 mb-4">৳${product.price}</p>
-                            <button onclick="orderProduct('${product.name}', ${product.price})" class="w-full py-3 rounded-xl font-bold neon-glow-btn text-white">🛒 অর্ডার করুন</button>
+                            <button onclick="orderProduct('${product.name}', ${product.price})" class="w-full py-3 rounded-xl font-bold neon-glow-btn text-white mb-3">🛒 অর্ডার করুন</button>
+                            ${isAdmin ? `<button onclick="deleteProduct('${product.id}')" class="w-full py-2 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded-lg border border-red-800 transition">ডিলিট করুন 🗑️</button>` : ''}
                         </div>
                     </div>
                 `;
             });
         }
 
+        function orderProduct(name, price) {
+            const message = `হ্যালো, আমি এই ব্যাগটি অর্ডার করতে চাই: ${name} (দাম: ${price} টাকা)`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
         function handleAdminGate() {
             const pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
             if (pass === "trend744") {
                 document.getElementById('admin-master-panel').classList.remove('hidden');
+                displayProducts();
             } else {
                 alert("ভুল পাসওয়ার্ড!");
             }
@@ -181,6 +198,7 @@
 
         function closeAdminPanel() {
             document.getElementById('admin-master-panel').classList.add('hidden');
+            displayProducts();
         }
 
         document.getElementById('add-product-form').addEventListener('submit', async (e) => {
