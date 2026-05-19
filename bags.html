@@ -37,6 +37,17 @@
             background: linear-gradient(135deg, #10b981, #059669);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
+
+        /* 🎪 অফার লেখার লাফানোর কাস্টম অ্যানিমেশন */
+        .jumping-offer {
+            display: inline-block;
+            animation: luxuryJump 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate;
+        }
+
+        @keyframes luxuryJump {
+            0% { transform: translateY(0) scale(1); text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+            100% { transform: translateY(-8px) scale(1.03); text-shadow: 0 15px 25px rgba(0,0,0,0.5); }
+        }
     </style>
 </head>
 <body class="text-gray-100">
@@ -53,8 +64,10 @@
         </div>
     </nav>
 
-    <div class="bg-gradient-to-r from-purple-700 via-indigo-700 to-pink-700 py-3 text-white text-center font-bold text-xs md:text-sm">
-        🎉 উৎসবের ধামাকা অফার: প্রতিটি অর্ডারের সাথে ১টি কাস্টমাইজড গিফট একদম ফ্রি! 🎁
+    <div class="bg-gradient-to-r from-amber-500 via-rose-600 to-purple-700 py-4 text-center overflow-hidden border-b border-white/10 shadow-2xl relative z-30">
+        <h2 class="jumping-offer text-lg md:text-2xl font-black text-white uppercase tracking-wide px-4 drop-shadow-md">
+            🎉 উৎসবের ধামাকা অফার: প্রতিটি অর্ডারের সাথে ১টি কাস্টমাইজড গিফট একদম ফ্রি! 🎁
+        </h2>
     </div>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
@@ -63,8 +76,7 @@
             <p class="text-gray-400 mt-1 text-sm">নতুন প্রোডাক্ট, অফার এবং মেগা ডিসকাউন্ট ডিলসমূহ</p>
         </div>
 
-        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
         <hr class="my-20 border-gray-800/60">
 
@@ -86,7 +98,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">আসল দাম (৳) <span class="text-gray-600 font-normal">(ঐচ্ছিক)</span></label>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">আসল দাম (৳)</label>
                         <input type="number" id="prod-old-price" placeholder="৳ ৩৫০" class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
                     </div>
                     <div>
@@ -134,10 +146,7 @@
 
             products.forEach(product => {
                 const prodReviews = reviews[product.id] || [];
-                const avgRating = prodReviews.length 
-                    ? (prodReviews.reduce((sum, r) => sum + r.rating, 0) / prodReviews.length).toFixed(1) 
-                    : "5.0";
-
+                const avgRating = prodReviews.length ? (prodReviews.reduce((sum, r) => sum + r.rating, 0) / prodReviews.length).toFixed(1) : "5.0";
                 const hasDiscount = product.oldPrice && product.oldPrice > product.price;
 
                 const productCard = `
@@ -156,7 +165,6 @@
                                         <span>★</span> <span class="ml-1">${avgRating}</span>
                                     </div>
                                 </div>
-
                                 <div class="flex items-center gap-3 mb-6">
                                     <span class="text-xl font-black text-indigo-400">৳${product.price}</span>
                                     ${hasDiscount ? `<span class="text-gray-500 line-through text-xs">৳${product.oldPrice}</span>` : ''}
@@ -207,14 +215,7 @@
             const oldPrice = document.getElementById('prod-old-price').value;
             const image = document.getElementById('prod-img').value;
 
-            const newProd = {
-                id: Date.now(),
-                name: name,
-                price: parseInt(price),
-                oldPrice: oldPrice ? parseInt(oldPrice) : null,
-                image: image
-            };
-
+            const newProd = { id: Date.now(), name, price: parseInt(price), oldPrice: oldPrice ? parseInt(oldPrice) : null, image };
             products.unshift(newProd);
             localStorage.setItem('tp_products_v3', JSON.stringify(products));
             displayProducts();
