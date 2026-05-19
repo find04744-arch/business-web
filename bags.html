@@ -15,13 +15,13 @@
 <body class="p-2">
 
     <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex justify-between items-center mb-4">
             <h1 class="text-xl font-bold">কালেকশন</h1>
-            <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-3 py-1 rounded text-[10px]">Gate 🔐</button>
+            <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-2 py-1 rounded text-[10px]">Gate 🔐</button>
         </div>
 
         <div class="mb-6">
-            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="খুঁজুন..." class="w-full p-2 bg-[#0d1423] border border-indigo-900/50 rounded-lg text-sm text-white outline-none">
+            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="খুঁজুন..." class="w-full p-2 bg-[#0d1423] border border-indigo-900/50 rounded-lg text-white text-sm outline-none">
         </div>
 
         <div id="product-list" class="grid grid-cols-3 gap-2"></div>
@@ -34,7 +34,7 @@
             <form id="product-form" class="space-y-4">
                 <input type="text" id="name" placeholder="নাম" class="w-full p-3 bg-black border border-gray-800 rounded" required>
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="number" id="price" placeholder="বর্তমান দাম" class="w-full p-3 bg-black border border-gray-800 rounded" required>
+                    <input type="number" id="price" placeholder="দাম" class="w-full p-3 bg-black border border-gray-800 rounded" required>
                     <input type="number" id="oldPrice" placeholder="আসল দাম" class="w-full p-3 bg-black border border-gray-800 rounded">
                 </div>
                 <input type="url" id="image" placeholder="ছবির লিঙ্ক" class="w-full p-3 bg-black border border-gray-800 rounded" required>
@@ -61,15 +61,16 @@
             data.forEach(p => {
                 const hasOffer = p.oldPrice && parseInt(p.oldPrice) > parseInt(p.price);
                 list.innerHTML += `
-                    <div class="cyber-card p-1 rounded">
+                    <div class="cyber-card p-1 rounded text-center">
                         ${hasOffer ? `<div class="offer-tag">OFFER</div>` : ''}
                         <img src="${p.image}" class="w-full h-24 object-cover mb-1 rounded">
                         <h3 class="font-bold text-[10px] truncate">${p.name}</h3>
-                        <div class="flex items-center gap-1 mb-1">
-                            <span class="text-[11px] text-indigo-400 font-bold">৳${p.price}</span>
+                        <div class="flex flex-col items-center gap-0 mb-1">
+                            <span class="text-[12px] text-indigo-400 font-bold">৳${p.price}</span>
+                            ${hasOffer ? `<span class="text-gray-500 line-through text-[8px]">৳${p.oldPrice}</span>` : ''}
                         </div>
-                        <button onclick="order('${p.name}', '${p.price}')" class="w-full py-1 neon-btn font-bold rounded text-[9px]">অর্ডার</button>
-                        ${isAdmin ? `<button onclick="deleteP('${p.id}')" class="w-full py-1 bg-red-800 text-white text-[8px] rounded mt-1">ডিলিট</button>` : ''}
+                        <button onclick="order('${p.name}', '${p.price}')" class="w-full py-1 neon-btn font-bold rounded text-[9px] mb-1">অর্ডার</button>
+                        ${isAdmin ? `<button onclick="deleteP('${p.id}')" class="w-full py-1 bg-red-800 text-white text-[8px] rounded">ডিলিট</button>` : ''}
                     </div>
                 `;
             });
@@ -82,7 +83,7 @@
         }
 
         function order(name, price) {
-            const msg = `হ্যালো! আমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই: ${name}, মূল্য: ${price} টাকা। দয়া করে প্রসেসটি জানান।`;
+            const msg = `হ্যালো! আমি এই প্রোডাক্টটি অর্ডার করতে চাই: ${name}, মূল্য: ${price} টাকা।`;
             window.open(`https://wa.me/8801611341846?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -110,11 +111,11 @@
         };
 
         function openAdmin() {
-            const p = prompt("অ্যাডমিন পাসওয়ার্ড:");
+            const p = prompt("পাসওয়ার্ড:");
             if(p === "trend744") {
                 document.getElementById('admin-panel').classList.remove('hidden');
                 renderProducts(allProducts);
-            } else alert("ভুল পাসওয়ার্ড!");
+            } else alert("ভুল!");
         }
 
         function closeAdmin() {
