@@ -4,97 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Collections | iX-iEra</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #060b13; }
-        .cyber-card { background: rgba(13, 20, 35, 0.85); border: 1px solid rgba(99, 102, 241, 0.2); backdrop-filter: blur(12px); transition: all 0.4s ease; }
-        .neon-glow-btn { background: linear-gradient(135deg, #6366f1, #a855f7); }
-        .neon-green-btn { background: linear-gradient(135deg, #10b981, #059669); }
+        body { 
+            font-family: 'Hind Siliguri', sans-serif; 
+            background-color: #060b13;
+        }
+        .cyber-card {
+            background: rgba(13, 20, 35, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+        }
+        .cyber-card:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+            transform: translateY(-6px);
+        }
+        .neon-glow-btn {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
+        .neon-green-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .offer-badge {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
     </style>
 </head>
 <body class="text-gray-100">
 
     <nav class="bg-gray-950/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-black text-white">iX-<span class="text-indigo-400">iEra</span></h1>
-            <button id="admin-control-gate" onclick="handleAdminGate()" class="text-xs text-red-200 bg-red-900/20 px-4 py-2 rounded-xl font-bold">Control Gate 🔐</button>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span class="text-white font-black text-xl">IX</span>
+                </a>
+                <span class="text-2xl font-black text-white tracking-tight">iX-<span class="text-indigo-400">iEra</span></span>
+            </div>
+            <button id="admin-control-gate" onclick="handleAdminGate()" class="text-xs text-red-200 bg-red-900/20 border border-red-800/50 px-4 py-2 rounded-xl font-bold">Control Gate 🔐</button>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-12 border-l-4 border-purple-500 pl-4">
+            <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">আমাদের এক্সক্লুসিভ ব্যাগ কালেকশন</h2>
+            <p class="text-gray-400 mt-1">সবচেয়ে সেরা দামে আপনার পছন্দের ব্যাগ বেছে নিন</p>
+        </div>
+
         <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
-        <div id="admin-master-panel" class="hidden mt-20 p-8 bg-gray-900 border border-indigo-500/30 rounded-3xl">
-            <h3 class="text-xl font-black text-indigo-400 mb-6">⚡ লাইভ ইনভেন্টরি কন্ট্রোল প্যানেল</h3>
-            <form id="add-product-form" class="space-y-4">
-                <input type="text" id="prod-name" placeholder="নাম" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl">
-                <input type="number" id="prod-price" placeholder="দাম" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl">
-                <input type="url" id="prod-img" placeholder="ছবির লিঙ্ক" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl">
-                <button type="submit" class="w-full py-4 rounded-xl font-bold neon-green-btn">প্রোডাক্ট যোগ করুন</button>
-            </form>
-            <button onclick="closeAdminPanel()" class="mt-4 text-xs text-red-400 underline">প্যানেল বন্ধ করুন</button>
+        <div id="admin-master-panel" class="hidden mt-20 space-y-12">
+            <hr class="border-gray-800/60">
+            <section class="max-w-4xl mx-auto bg-gray-900/90 border border-indigo-500/30 p-8 rounded-3xl shadow-2xl">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-xl font-black text-indigo-400 flex items-center gap-2">
+                        <span class="text-2xl">⚡</span> লাইভ ইনভেন্টরি কন্ট্রোল প্যানেল
+                    </h3>
+                    <button onclick="closeAdminPanel()" class="bg-red-600/20 text-red-400 border border-red-600/40 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-red-600 hover:text-white transition">প্যানেল বন্ধ করুন</button>
+                </div>
+                
+                <form id="add-product-form" class="space-y-6">
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">ব্যাগ এর নাম</label>
+                        <input type="text" id="prod-name" placeholder="নাম" required class="w-full px-4 py-4 bg-gray-950 border border-gray-800 rounded-2xl text-white outline-none focus:border-indigo-500 transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs text-gray-500 ml-1 mb-1 block">অফার দাম (৳)</label>
+                            <input type="number" id="prod-price" placeholder="৳ বর্তমান দাম" required class="w-full px-4 py-4 bg-gray-950 border border-gray-800 rounded-2xl text-white outline-none focus:border-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 ml-1 mb-1 block">আসল দাম (৳) - অফার ট্যাগ এর জন্য</label>
+                            <input type="number" id="prod-old-price" placeholder="৳ আগের দাম (ঐচ্ছিক)" class="w-full px-4 py-4 bg-gray-950 border border-gray-800 rounded-2xl text-white outline-none focus:border-indigo-500 transition">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">ছবির লিঙ্ক (URL)</label>
+                        <input type="url" id="prod-img" placeholder="ছবির লিঙ্ক (ImgBB বা অন্য লিঙ্ক)" required class="w-full px-4 py-4 bg-gray-950 border border-gray-800 rounded-2xl text-white outline-none focus:border-indigo-500 transition">
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-2xl font-bold neon-green-btn text-white text-lg">প্রোডাক্ট লাইভ করুন 🚀</button>
+                </form>
+            </section>
         </div>
     </main>
 
     <script>
-        const API_URL = "https://6a0c66445aa893e1015bddd4.mockapi.io/products";
+        const API_URL = "https://6a0c66445aa893e1015bddd4.mockapi.io/products"; 
 
-        async function displayProducts() {
+        async function fetchProducts() {
             const res = await fetch(API_URL);
-            const products = await res.json();
-            const isAdmin = !document.getElementById('admin-master-panel').classList.contains('hidden');
-            const list = document.getElementById('product-list');
-            list.innerHTML = '';
-            
-            products.reverse().forEach(p => {
-                list.innerHTML += `
-                    <div class="cyber-card rounded-2xl p-6">
-                        <img src="${p.image}" class="w-full h-48 object-cover rounded-xl mb-4">
-                        <h3 class="text-lg font-bold">${p.name}</h3>
-                        <p class="text-indigo-400 font-black text-xl mb-4">৳${p.price}</p>
-                        ${isAdmin ? `<button onclick="deleteProduct('${p.id}')" class="w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-xs mb-2">ডিলিট করুন 🗑️</button>` : ''}
-                        <button onclick="alert('WhatsApp এ অর্ডার করুন')" class="w-full py-3 neon-glow-btn rounded-xl font-bold">অর্ডার করুন</button>
-                    </div>
-                `;
-            });
+            return await res.json();
         }
 
         async function deleteProduct(id) {
-            if (confirm("সত্যিই ডিলিট করতে চান?")) {
+            if (confirm("আপনি কি নিশ্চিত এটি ডিলিট করতে চান?")) {
                 await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
                 displayProducts();
             }
         }
 
+        async function displayProducts() {
+            const products = await fetchProducts();
+            const isAdmin = !document.getElementById('admin-master-panel').classList.contains('hidden');
+            const list = document.getElementById('product-list');
+            list.innerHTML = '';
+            
+            products.reverse().forEach(p => {
+                const hasOffer = p.oldPrice && parseInt(p.oldPrice) > parseInt(p.price);
+                
+                list.innerHTML += `
+                    <div class="cyber-card rounded-3xl overflow-hidden relative flex flex-col justify-between shadow-lg">
+                        ${hasOffer ? `<div class="offer-badge">OFFER</div>` : ''}
+                        
+                        <div class="h-64 overflow-hidden bg-gray-950">
+                            <img src="${p.image}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">${p.name}</h3>
+                            
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-2xl font-black text-indigo-400">৳${p.price}</span>
+                                ${hasOffer ? `<span class="text-gray-500 line-through text-sm">৳${p.oldPrice}</span>` : ''}
+                            </div>
+
+                            <button onclick="orderOnWhatsApp('${p.name}', '${p.price}')" class="w-full py-3 rounded-xl font-bold neon-glow-btn text-white mb-3 flex items-center justify-center gap-2">
+                                🛒 অর্ডার করুন
+                            </button>
+                            
+                            ${isAdmin ? `<button onclick="deleteProduct('${p.id}')" class="w-full py-2 bg-red-600/20 hover:bg-red-600 text-red-200 hover:text-white transition rounded-xl font-bold text-xs border border-red-600/30">ডিলিট করুন 🗑️</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function orderOnWhatsApp(name, price) {
+            const url = `https://wa.me/8801611341846?text=আমি এই ব্যাগটি অর্ডার করতে চাই: ${name} (দাম: ${price} টাকা)`;
+            window.open(url, '_blank');
+        }
+
         function handleAdminGate() {
-            const pass = prompt("পাসওয়ার্ড দিন:");
+            const pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
             if (pass === "trend744") {
                 document.getElementById('admin-master-panel').classList.remove('hidden');
-                displayProducts(); 
+                displayProducts();
+                window.scrollTo({ top: document.getElementById('admin-master-panel').offsetTop, behavior: 'smooth' });
             } else { alert("ভুল পাসওয়ার্ড!"); }
         }
 
         function closeAdminPanel() {
             document.getElementById('admin-master-panel').classList.add('hidden');
             displayProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.getElementById('add-product-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "আপলোড হচ্ছে...";
+            btn.disabled = true;
+
+            const newProd = {
+                name: document.getElementById('prod-name').value,
+                price: document.getElementById('prod-price').value,
+                oldPrice: document.getElementById('prod-old-price').value || null,
+                image: document.getElementById('prod-img').value
+            };
+
             await fetch(API_URL, { 
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'}, 
-                body: JSON.stringify({
-                    name: document.getElementById('prod-name').value,
-                    price: document.getElementById('prod-price').value,
-                    image: document.getElementById('prod-img').value
-                }) 
+                body: JSON.stringify(newProd) 
             });
-            displayProducts();
+
+            btn.innerText = "প্রোডাক্ট লাইভ করুন 🚀";
+            btn.disabled = false;
             e.target.reset();
+            alert("সফলভাবে যোগ করা হয়েছে!");
+            displayProducts();
         });
 
+        // প্রথমবার পেজ লোড হলে প্রোডাক্ট দেখাবে
         displayProducts();
     </script>
 </body>
