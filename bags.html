@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #060b13; color: white; font-family: sans-serif; }
-        .cyber-card { background: #0d1423; border: 1px solid #1f2937; }
+        .cyber-card { background: #0d1423; border: 1px solid #1f2937; position: relative; }
         .offer-tag { background: #e11d48; color: white; padding: 2px 8px; font-size: 10px; font-weight: bold; position: absolute; top: 10px; left: 10px; z-index: 10; border-radius: 4px; }
         .neon-btn { background: linear-gradient(135deg, #6366f1, #a855f7); }
     </style>
@@ -50,9 +50,9 @@
             list.innerHTML = '';
             
             data.forEach(p => {
-                const hasOffer = p.oldPrice && p.oldPrice > p.price;
+                const hasOffer = p.oldPrice && parseInt(p.oldPrice) > parseInt(p.price);
                 list.innerHTML += `
-                    <div class="cyber-card p-4 rounded relative">
+                    <div class="cyber-card p-4 rounded">
                         ${hasOffer ? `<div class="offer-tag">OFFER</div>` : ''}
                         <img src="${p.image}" class="w-full h-48 object-cover mb-4">
                         <h3 class="font-bold text-lg">${p.name}</h3>
@@ -68,12 +68,19 @@
         }
 
         function order(name, price) {
-            const msg = `আমি এই ব্যাগটি অর্ডার করতে চাই: ${name}, দাম: ${price} টাকা।`;
+            const msg = `হ্যালো! 
+
+আমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই: 
+📦 প্রোডাক্ট: ${name} 
+💰 মূল্য: ${price} টাকা 
+
+দয়া করে অর্ডার কমপ্লিট করার প্রসেসটি জানান।`;
+            
             window.open(`https://wa.me/8801611341846?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         async function deleteP(id) {
-            if(confirm('কনফার্ম?')) {
+            if(confirm('আপনি কি এটি ডিলিট করতে চান?')) {
                 await fetch(`${API}/${id}`, {method: 'DELETE'});
                 loadProducts();
             }
@@ -96,7 +103,7 @@
         };
 
         function openAdmin() {
-            const p = prompt("পাসওয়ার্ড দিন:");
+            const p = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
             if(p === "trend744") {
                 document.getElementById('admin-panel').classList.remove('hidden');
                 loadProducts();
