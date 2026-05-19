@@ -38,19 +38,14 @@
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
 
-        /* 🎪 অফার ব্যানারের অনবরত লাফানোর অ্যানিমেশন (Continuous Smooth Bounce) */
         .bouncing-offer {
             animation: smoothBounce 1.2s infinite ease-in-out;
             display: inline-block;
         }
 
         @keyframes smoothBounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
     </style>
 </head>
@@ -75,54 +70,62 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
-        <div class="mb-12 border-l-4 border-purple-500 pl-4">
-            <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">আমাদের এক্সক্লুসিভ ব্যাগ কালেকশন</h2>
-            <p class="text-gray-400 mt-1 text-sm">নতুন প্রোডাক্ট, অফার এবং মেগা ডিসকাউন্ট ডিলসমূহ</p>
+        <div class="mb-12 border-l-4 border-purple-500 pl-4 flex justify-between items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">আমাদের এক্সক্লুসিভ ব্যাগ কালেকশন</h2>
+                <p class="text-gray-400 mt-1 text-sm">নতুন প্রোডাক্ট, অফার এবং মেগা ডিসকাউন্ট ডিলসমূহ</p>
+            </div>
+            <button onclick="handleAdminGate()" class="opacity-10 hover:opacity-100 text-[10px] text-gray-700 bg-gray-900/40 px-2.5 py-1 rounded transition">Control Gate</button>
         </div>
 
         <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
 
-        <hr class="my-20 border-gray-800/60">
-
-        <section class="max-w-2xl mx-auto bg-gray-900/90 border border-gray-800 p-8 rounded-3xl shadow-2xl mb-12">
-            <h3 class="text-2xl font-black text-white mb-2 text-center">ইনভেন্টরি ম্যানেজার (অ্যাডমিন)</h3>
-            <p class="text-center text-gray-400 text-sm mb-6">নতুন প্রোডাক্টের নাম, অফার প্রাইজ এবং ইমেজ লিঙ্ক দিয়ে প্রোডাক্ট লাইভ করুন</p>
+        <div id="admin-master-panel" class="hidden mt-20 space-y-12">
+            <hr class="border-gray-800/60">
             
-            <form id="add-product-form" class="space-y-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">প্রোডাক্টের নাম</label>
-                        <input type="text" id="prod-name" placeholder="উদা: এনিমে কটন টোট ব্যাগ" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">অফার মূল্য / বিক্রয় মূল্য (৳)</label>
-                        <input type="number" id="prod-price" placeholder="৳ ২৫০" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
-                    </div>
+            <section class="max-w-2xl mx-auto bg-gray-900/90 border border-indigo-500/30 p-8 rounded-3xl shadow-2xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-black text-indigo-400">⚡ লাইভ ইনভেন্টরি কন্ট্রোল প্যানেল</h3>
+                    <button onclick="closeAdminPanel()" class="text-xs bg-red-950 text-red-400 border border-red-900 px-3 py-1 rounded-lg hover:bg-red-900 transition">پ্যানেল বন্ধ করুন</button>
                 </div>
+                <p class="text-gray-400 text-xs mb-6">এখানে নতুন প্রোডাক্ট অ্যাড বা ডিলিট করলে তা সরাসরি আপনার ব্রাউজার ডেটায় স্থায়ীভাবে সেভ থাকবে।</p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">আসল দাম (৳) <span class="text-gray-600 font-normal">(ঐচ্ছিক)</span></label>
-                        <input type="number" id="prod-old-price" placeholder="৳ ৩৫০" class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                <form id="add-product-form" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">প্রোডাক্টের নাম</label>
+                            <input type="text" id="prod-name" placeholder="উদা: এনিমে কটন টোট ব্যাগ" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">অফার মূল্য (৳)</label>
+                            <input type="number" id="prod-price" placeholder="৳ ২৫০" required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">ছবির লিঙ্ক (ImgBB URL)</label>
-                        <input type="url" id="prod-img" placeholder="https://i.ibb.co/..." required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">আসল দাম (৳) <span class="text-gray-600 font-normal">(ঐচ্ছিক)</span></label>
+                            <input type="number" id="prod-old-price" placeholder="৳ ৩৫০" class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">ছবির লিঙ্ক (ImgBB URL)</label>
+                            <input type="url" id="prod-img" placeholder="https://i.ibb.co/..." required class="w-full px-4 py-3 bg-gray-950 border border-gray-700 rounded-xl text-white outline-none">
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" class="w-full text-white py-4 rounded-xl font-bold neon-green-btn mt-2">নতুন প্রোডাক্ট এড করুন 🚀</button>
-            </form>
-        </section>
+                    <button type="submit" class="w-full text-white py-4 rounded-xl font-bold neon-green-btn mt-2">নতুন প্রোডাক্ট লাইভ করুন 🚀</button>
+                </form>
+            </section>
 
-        <section class="max-w-2xl mx-auto bg-gray-950 border border-red-900/40 p-8 rounded-3xl shadow-xl">
-            <h3 class="text-xl font-black text-red-400 mb-1 text-center">❌ প্রোডাক্ট ডিলিট প্যানেল</h3>
-            <p class="text-center text-gray-500 text-xs mb-6">নিচের তালিকা থেকে যেকোনো প্রোডাক্টের পাশের ডিলিট বাটনে ক্লিক করলেই সেটি স্টোর থেকে মুছে যাবে</p>
-            
-            <div id="delete-manager-list" class="space-y-3 max-h-64 overflow-y-auto pr-2">
-                </div>
-        </section>
+            <section class="max-w-2xl mx-auto bg-gray-950 border border-red-900/40 p-8 rounded-3xl shadow-xl">
+                <h3 class="text-lg font-black text-red-400 mb-1 text-center">❌ প্রোডাক্ট ডিলিট করার তালিকা</h3>
+                <p class="text-center text-gray-500 text-xs mb-6">যেকোনো প্রোডাক্টের পাশের ডিলিট বাটনে ক্লিক করলেই সেটি কাস্টমার ভিউ থেকে মুছে যাবে</p>
+                
+                <div id="delete-manager-list" class="space-y-3 max-h-64 overflow-y-auto pr-2">
+                    </div>
+            </section>
+        </div>
     </main>
 
     <footer class="bg-gray-950 py-8 text-center text-gray-600 border-t border-gray-900 mt-12">
@@ -131,11 +134,14 @@
 
     <script>
         const WHATSAPP_NUMBER = "8801611341846";
+        
+        // 🔒 সিক্রেট পাসওয়ার্ড হ্যাশ (আসল পাসওয়ার্ড: trend744)
+        const PASS_HASH = "8ba7c2d9e6e8e8b2cc762dfbb9cf8605"; 
 
         const defaultProducts = [
             {
                 id: 1,
-                name: "প্রিমিয়াম ফ্লোরাল ক্যালিগ্রাফি টোট ব্যাগ",
+                name: "প্রিমিয়াম ফ্লোラル ক্যালিগ্রাফি টোট ব্যাগ",
                 price: 290,
                 oldPrice: 380,
                 image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600"
@@ -149,10 +155,21 @@
             }
         ];
 
-        let products = JSON.parse(localStorage.getItem('tp_products_v3')) || defaultProducts;
-        let reviews = JSON.parse(localStorage.getItem('tp_reviews_v3')) || {};
+        let products = JSON.parse(localStorage.getItem('tp_live_store_v5')) || defaultProducts;
+        let reviews = JSON.parse(localStorage.getItem('tp_reviews_v5')) || {};
 
-        // 🎯 মেইন প্রোডাক্ট গ্রিড এবং অ্যাডমিন ডিলিট প্যানেল দুটি একসঙ্গে আপডেট করার ফাংশন
+        let loginAttempts = parseInt(localStorage.getItem('tp_login_attempts')) || 0;
+        let lockUntil = parseInt(localStorage.getItem('tp_lock_time')) || 0;
+
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
         function displayProducts() {
             const productList = document.getElementById('product-list');
             const deleteManagerList = document.getElementById('delete-manager-list');
@@ -168,7 +185,6 @@
 
                 const hasDiscount = product.oldPrice && product.oldPrice > product.price;
 
-                // ১. স্টোরফ্রন্টের জন্য কার্ড জেনারেট করা
                 if (productList) {
                     const productCard = `
                         <div class="cyber-card rounded-2xl overflow-hidden relative flex flex-col justify-between shadow-lg">
@@ -224,7 +240,6 @@
                     productList.innerHTML += productCard;
                 }
 
-                // ২. ডিলিট প্যানেলের লিস্ট জেনারেট করা
                 if (deleteManagerList) {
                     const deleteRow = `
                         <div class="flex items-center justify-between bg-gray-900 p-3 rounded-xl border border-gray-800 text-sm">
@@ -242,25 +257,63 @@
                 }
             });
 
-            // যদি স্টোরে কোনো প্রোডাক্টই না থাকে
             if (products.length === 0 && deleteManagerList) {
                 deleteManagerList.innerHTML = `<p class="text-xs text-center text-gray-600 italic py-4">স্টোরে কোনো প্রোডাক্ট নেই!</p>`;
             }
         }
 
-        // 🎯 প্রোডাক্ট ডিলিট করার মেইন ম্যাজিক ফাংশন
-        function deleteProduct(id, name) {
-            if (confirm(`আপনি কি নিশ্চিত যে "${name}" প্রোডাক্টটি স্টোর থেকে চিরতরে ডিলিট করতে চান?`)) {
-                // নির্দিষ্ট ID বাদ দিয়ে বাকি প্রোডাক্ট ফিল্টার করা
-                products = products.filter(product => product.id !== id);
+        // 🛡️ ৩ বার ভুলের সিকিউরিটিসহ ৫ ঘণ্টার গেটওয়ে কন্ট্রোল প্যানেল
+        function handleAdminGate() {
+            const currentTime = Date.now();
+
+            if (currentTime < lockUntil) {
+                // কত ঘন্টা ও মিনিট বাকি আছে তা হিসাব করা হচ্ছে
+                const msLeft = lockUntil - currentTime;
+                const hoursLeft = Math.floor(msLeft / (1000 * 60 * 60));
+                const minsLeft = Math.ceil((msLeft % (1000 * 60 * 60)) / 60000);
                 
-                // যদি ওই প্রোডাক্টের কোনো রিভিউ থাকে তাও ডিলিট করা
+                let timeString = hoursLeft > 0 ? `${hoursLeft} ঘণ্টা ${minsLeft} মিনিট` : `${minsLeft} মিনিট`;
+                alert(`🛑 সিকিউরিটি লকআউট! পরপর ৩ বার ভুল পাসওয়ার্ড দেওয়ার কারণে অ্যাডমিন পোর্টালটি ব্লক করা হয়েছে। দয়া করে আরও ${timeString} পর চেষ্টা করুন।`);
+                return;
+            }
+
+            const pass = prompt("সিক্রেট অ্যাডমিন পাসওয়ার্ড দিন:");
+            if (!pass) return;
+
+            if (simpleHash(pass) === PASS_HASH) {
+                loginAttempts = 0;
+                localStorage.removeItem('tp_login_attempts');
+                localStorage.removeItem('tp_lock_time');
+                
+                document.getElementById('admin-master-panel').classList.remove('hidden');
+                alert("🔓 অ্যাক্সেস গ্র্যান্টেড! লাইভ প্যানেলটি নিচে ওপেন করা হয়েছে।");
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            } else {
+                loginAttempts++;
+                localStorage.setItem('tp_login_attempts', loginAttempts);
+
+                if (loginAttempts >= 3) {
+                    const lockTimeDuration = currentTime + (5 * 60 * 60 * 1000); // ⏱️ ঠিক ৫ ঘণ্টা (৩০০ মিনিট) লকআউট
+                    localStorage.setItem('tp_lock_time', lockTimeDuration);
+                    lockUntil = lockTimeDuration;
+                    alert("🛑 অ্যালার্ট! পরপর ৩ বার ভুল পাসওয়ার্ড দেওয়া হয়েছে। সুরক্ষার স্বার্থে এই ডিভাইস থেকে অ্যাডমিন পোর্টাল ৫ ঘণ্টার জন্য সম্পূর্ণ ব্লক করা হলো।");
+                } else {
+                    alert(`❌ ভুল পাসওয়ার্ড! আপনি আর মাত্র ${3 - loginAttempts} বার চেষ্টা করতে পারবেন।`);
+                }
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-master-panel').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteProduct(id, name) {
+            if (confirm(`আপনি কি নিশ্চিত যে "${name}" প্রোডাক্টটি চিরতরে ডিলিট করতে চান?`)) {
+                products = products.filter(product => product.id !== id);
                 if (reviews[id]) delete reviews[id];
                 
-                // লোকাল স্টোরেজ আপডেট ও রি-রেন্ডার
-                localStorage.setItem('tp_products_v3', JSON.stringify(products));
-                localStorage.setItem('tp_reviews_v3', JSON.stringify(reviews));
-                
+                localStorage.setItem('tp_live_store_v5', JSON.stringify(products));
                 displayProducts();
             }
         }
@@ -286,10 +339,10 @@
             };
 
             products.unshift(newProd);
-            localStorage.setItem('tp_products_v3', JSON.stringify(products));
+            localStorage.setItem('tp_live_store_v5', JSON.stringify(products));
             displayProducts();
             this.reset();
-            alert("🚀 নতুন প্রোডাক্ট সফলভাবে স্টোরে যুক্ত করা হয়েছে!");
+            alert("🚀 নতুন প্রোডাক্ট সরাসরি স্টোরে লাইভ হয়ে গেছে!");
         });
 
         function addReview(id) {
@@ -303,7 +356,7 @@
             
             if(!reviews[id]) reviews[id] = [];
             reviews[id].unshift({ rating, text });
-            localStorage.setItem('tp_reviews_v3', JSON.stringify(reviews));
+            localStorage.setItem('tp_reviews_v5', JSON.stringify(reviews));
             displayProducts();
         }
 
