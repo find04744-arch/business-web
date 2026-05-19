@@ -8,37 +8,37 @@
     <style>
         body { background-color: #060b13; color: white; font-family: sans-serif; }
         .cyber-card { background: #0d1423; border: 1px solid #1f2937; position: relative; }
-        .offer-tag { background: #e11d48; color: white; padding: 2px 8px; font-size: 10px; font-weight: bold; position: absolute; top: 10px; left: 10px; z-index: 10; border-radius: 4px; }
+        .offer-tag { background: #e11d48; color: white; padding: 2px 4px; font-size: 8px; font-weight: bold; position: absolute; top: 5px; left: 5px; z-index: 10; border-radius: 4px; }
         .neon-btn { background: linear-gradient(135deg, #6366f1, #a855f7); }
     </style>
 </head>
-<body class="p-6">
+<body class="p-2">
 
     <div class="max-w-6xl mx-auto">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">আমাদের এক্সক্লুসিভ ব্যাগ কালেকশন</h1>
-            <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-4 py-2 rounded text-sm">Control Gate 🔐</button>
+            <h1 class="text-xl font-bold">কালেকশন</h1>
+            <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-3 py-1 rounded text-[10px]">Gate 🔐</button>
         </div>
 
-        <div class="mb-10">
-            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="🔍 আপনার প্রিয় পন্যটি খুঁজুন..." class="w-full p-4 bg-[#0d1423] border border-indigo-900/50 rounded-xl text-white outline-none focus:border-indigo-500">
+        <div class="mb-6">
+            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="খুঁজুন..." class="w-full p-2 bg-[#0d1423] border border-indigo-900/50 rounded-lg text-sm text-white outline-none">
         </div>
 
-        <div id="product-list" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        <div id="product-list" class="grid grid-cols-3 gap-2"></div>
 
         <div id="admin-panel" class="hidden mt-10 p-6 bg-[#0d1423] border border-indigo-900 rounded-lg">
             <div class="flex justify-between mb-4">
-                <h2 class="text-xl font-bold text-indigo-400">⚡ লাইভ ইনভেন্টরি কন্ট্রোল প্যানেল</h2>
-                <button onclick="closeAdmin()" class="text-red-400 text-sm">প্যানেল বন্ধ করুন</button>
+                <h2 class="text-xl font-bold text-indigo-400">⚡ কন্ট্রোল প্যানেল</h2>
+                <button onclick="closeAdmin()" class="text-red-400 text-sm">বন্ধ করুন</button>
             </div>
             <form id="product-form" class="space-y-4">
                 <input type="text" id="name" placeholder="নাম" class="w-full p-3 bg-black border border-gray-800 rounded" required>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="number" id="price" placeholder="বর্তমান দাম" class="w-full p-3 bg-black border border-gray-800 rounded" required>
-                    <input type="number" id="oldPrice" placeholder="আসল দাম (ঐচ্ছিক)" class="w-full p-3 bg-black border border-gray-800 rounded">
+                    <input type="number" id="oldPrice" placeholder="আসল দাম" class="w-full p-3 bg-black border border-gray-800 rounded">
                 </div>
                 <input type="url" id="image" placeholder="ছবির লিঙ্ক" class="w-full p-3 bg-black border border-gray-800 rounded" required>
-                <button type="submit" class="w-full p-4 bg-green-600 font-bold rounded">প্রোডাক্ট যোগ করুন 🚀</button>
+                <button type="submit" class="w-full p-4 bg-green-600 font-bold rounded">যোগ করুন 🚀</button>
             </form>
         </div>
     </div>
@@ -61,22 +61,20 @@
             data.forEach(p => {
                 const hasOffer = p.oldPrice && parseInt(p.oldPrice) > parseInt(p.price);
                 list.innerHTML += `
-                    <div class="cyber-card p-4 rounded">
+                    <div class="cyber-card p-1 rounded">
                         ${hasOffer ? `<div class="offer-tag">OFFER</div>` : ''}
-                        <img src="${p.image}" class="w-full h-48 object-cover mb-4">
-                        <h3 class="font-bold text-lg">${p.name}</h3>
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="text-xl text-indigo-400 font-bold">৳${p.price}</span>
-                            ${hasOffer ? `<span class="text-gray-500 line-through text-sm">৳${p.oldPrice}</span>` : ''}
+                        <img src="${p.image}" class="w-full h-24 object-cover mb-1 rounded">
+                        <h3 class="font-bold text-[10px] truncate">${p.name}</h3>
+                        <div class="flex items-center gap-1 mb-1">
+                            <span class="text-[11px] text-indigo-400 font-bold">৳${p.price}</span>
                         </div>
-                        <button onclick="order('${p.name}', '${p.price}')" class="w-full py-2 neon-btn font-bold rounded mb-2">🛒 অর্ডার করুন</button>
-                        ${isAdmin ? `<button onclick="deleteP('${p.id}')" class="w-full py-2 bg-red-800 text-white text-xs rounded">ডিলিট করুন 🗑️</button>` : ''}
+                        <button onclick="order('${p.name}', '${p.price}')" class="w-full py-1 neon-btn font-bold rounded text-[9px]">অর্ডার</button>
+                        ${isAdmin ? `<button onclick="deleteP('${p.id}')" class="w-full py-1 bg-red-800 text-white text-[8px] rounded mt-1">ডিলিট</button>` : ''}
                     </div>
                 `;
             });
         }
 
-        // সার্চ ফিল্টার ফাংশন
         function filterProducts() {
             const query = document.getElementById('search-input').value.toLowerCase();
             const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
