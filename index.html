@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
         
-        /* 🌟 আল্ট্রা-লাক্সারি প্রি-লোডার */
+        /* 🌟 নতুন সিনেমাটিক লেটার-বাই-লেটার প্রি-লোডার */
         #welcome-loader {
             position: fixed;
             inset: 0;
@@ -34,46 +34,27 @@
             justify-content: center;
             align-items: center;
             transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-            padding: 20px;
         }
         
-        /* 🔠 প্রতিটি অক্ষর আলাদাভাবে অ্যানিমেট হওয়ার কাস্টম স্টাইল */
-        .intro-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap; /* মোবাইলে ভেঙে যেন সুন্দর দেখায় */
-            gap: 2px;
-        }
-
+        /* প্রতিটি অক্ষর আলাদা অ্যানিমেশন হওয়ার জন্য স্টাইল */
         .intro-letter {
-            font-size: 2.2rem; /* মোবাইলের জন্য পারফেক্ট সাইজ */
+            display: inline-block;
             font-weight: 900;
+            text-transform: uppercase;
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
             opacity: 0;
             transform: translateY(30px) scale(0.5);
-            filter: blur(5px);
-            animation: letterIntro 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            filter: blur(10px);
+            animation: letterReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 0 0 30px rgba(168, 85, 247, 0.2);
         }
 
-        /* ট্যাবলেট এবং ডেক্সটপের জন্য বড় সাইজ */
-        @media (min-width: 640px) {
-            .intro-letter {
-                font-size: 4.5rem;
-                letter-spacing: 6px;
-            }
-            .intro-container {
-                gap: 0px;
-            }
-        }
-
-        @keyframes letterIntro {
+        /* অক্ষরের লাইভ গ্লো ও উত্থান অ্যানিমেশন */
+        @keyframes letterReveal {
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
                 filter: blur(0px);
-                text-shadow: 0 0 15px #6366f1, 0 0 30px #a855f7;
             }
         }
 
@@ -155,26 +136,24 @@
 <body class="text-slate-200 selection:bg-indigo-500 selection:text-white">
 
     <div id="welcome-loader">
-        <div class="text-center w-full max-w-lg px-4">
-            <div class="intro-container">
+        <div class="text-center px-4">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl tracking-wider font-black select-none">
                 <span class="intro-letter" style="animation-delay: 0.1s;">T</span>
                 <span class="intro-letter" style="animation-delay: 0.2s;">R</span>
                 <span class="intro-letter" style="animation-delay: 0.3s;">E</span>
                 <span class="intro-letter" style="animation-delay: 0.4s;">N</span>
                 <span class="intro-letter" style="animation-delay: 0.5s;">D</span>
-                <span class="intro-letter" style="animation-delay: 0.6s; color: #a5b4fc;">P</span>
-                <span class="intro-letter" style="animation-delay: 0.7s; color: #a5b4fc;">U</span>
-                <span class="intro-letter" style="animation-delay: 0.8s; color: #a5b4fc;">L</span>
-                <span class="intro-letter" style="animation-delay: 0.9s; color: #a5b4fc;">S</span>
-                <span class="intro-letter" style="animation-delay: 1.0s; color: #a5b4fc;">E</span>
-            </div>
+                <span class="intro-letter" style="animation-delay: 0.6s; color: #818cf8;">P</span>
+                <span class="intro-letter" style="animation-delay: 0.7s; color: #818cf8;">U</span>
+                <span class="intro-letter" style="animation-delay: 0.8s; color: #818cf8;">L</span>
+                <span class="intro-letter" style="animation-delay: 0.9s; color: #818cf8;">S</span>
+                <span class="intro-letter" style="animation-delay: 1.0s; color: #818cf8;">E</span>
+            </h1>
             
-            <div class="mt-8 flex items-center justify-center gap-1.5">
-                <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
-                <span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                <span class="w-1.5 h-1.5 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+            <div class="mt-8 flex items-center justify-center gap-1.5 opacity-0 animate-fade-in" style="animation: fadeIn 0.5s 1.2s forwards;">
+                <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-ping"></span>
+                <p class="text-slate-400 font-medium text-[10px] sm:text-xs uppercase tracking-[0.3em]">Loading Luxury Experience</p>
             </div>
-            <p class="text-slate-500 font-medium text-[10px] uppercase tracking-widest mt-4">Loading Luxury Experience</p>
         </div>
     </div>
 
@@ -239,16 +218,16 @@
     </footer>
 
     <script>
-        // সব অক্ষরের অ্যানিমেশন শেষ হতে প্রায় ১.৮ সেকেন্ড লাগবে, তাই লোডারটি ২.২ সেকেন্ড পর রিমুভ হবে যেন পুরো এফেক্টটি কাস্টমার দেখতে পায়
+        // নতুন লেটার অ্যানিমেশনটি শেষ হওয়ার পর (২.২ সেকেন্ড পর) পুরো স্ক্রিনটি স্লাইড আউট হবে
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('welcome-loader');
                 if(loader) {
                     loader.style.opacity = '0';
-                    loader.style.transform = 'translateY(-30px)'; // স্মুথ আপওয়ার্ড এক্সিট
+                    loader.style.transform = 'translateY(-30px) scale(1.02)'; // প্রিমিয়াম আপ-স্লাইড ফেইড
                     setTimeout(() => loader.style.display = 'none', 800);
                 }
-            }, 2200); 
+            }, 2200); // প্রতিটি অক্ষর ফোটার জন্য টাইমিং ২.২ সেকেন্ড করা হয়েছে
         });
     </script>
 </body>
