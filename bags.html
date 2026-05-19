@@ -15,8 +15,9 @@
 <body class="p-6">
 
     <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-3xl font-bold">আমাদের এক্সক্লুসিভ  কালেকশন</h1>
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+            <h1 class="text-3xl font-bold">আমাদের এক্সক্লুসিভ কালেকশন</h1>
+            <input type="text" id="searchBar" onkeyup="filterProducts()" placeholder="🔍 প্রোডাক্ট সার্চ করুন..." class="w-full md:w-64 p-3 bg-gray-900 border border-gray-700 rounded-lg text-white">
             <button onclick="openAdmin()" class="bg-red-900/50 border border-red-800 text-red-200 px-4 py-2 rounded text-sm">Control Gate 🔐</button>
         </div>
 
@@ -41,10 +42,15 @@
 
     <script>
         const API = "https://6a0c66445aa893e1015bddd4.mockapi.io/products";
+        let allProducts = [];
 
         async function loadProducts() {
             const res = await fetch(API);
-            const data = await res.json();
+            allProducts = await res.json();
+            render(allProducts);
+        }
+
+        function render(data) {
             const list = document.getElementById('product-list');
             const isAdmin = !document.getElementById('admin-panel').classList.contains('hidden');
             list.innerHTML = '';
@@ -67,22 +73,21 @@
             });
         }
 
+        function filterProducts() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
+            render(filtered);
+        }
+
         function order(name, price) {
-            const msg = `হ্যালো! 
-
-আমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই: 
-📦 প্রোডাক্ট: ${name} 
-💰 মূল্য: ${price} টাকা 
-
-দয়া করে অর্ডার কমপ্লিট করার প্রসেসটি জানান।`;
-            
+            const msg = `হ্যালো! আমি এই প্রোডাক্টটি অর্ডার করতে চাই: ${name}, দাম: ${price} টাকা। দয়া করে অর্ডার প্রসেসটি জানান।`;
             window.open(`https://wa.me/8801611341846?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         async function deleteP(id) {
-            if(confirm('আপনি কি এটি ডিলিট করতে চান?')) {
+            if(confirm('এটি ডিলিট করতে চান?')) {
                 await fetch(`${API}/${id}`, {method: 'DELETE'});
-                loadProducts();
+                await loadProducts();
             }
         }
 
@@ -98,21 +103,21 @@
                     image: document.getElementById('image').value
                 })
             });
-            loadProducts();
+            await loadProducts();
             e.target.reset();
         };
 
         function openAdmin() {
-            const p = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+            const p = prompt("অ্যাডমিন পাসওয়ার্ড:");
             if(p === "trend744") {
                 document.getElementById('admin-panel').classList.remove('hidden');
-                loadProducts();
+                render(allProducts);
             } else alert("ভুল পাসওয়ার্ড!");
         }
 
         function closeAdmin() {
             document.getElementById('admin-panel').classList.add('hidden');
-            loadProducts();
+            render(allProducts);
         }
 
         loadProducts();
