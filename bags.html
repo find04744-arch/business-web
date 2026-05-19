@@ -49,7 +49,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-8px); /* ৮ পিক্সেল উপরে লাফাবে */
+                transform: translateY(-8px);
             }
         }
     </style>
@@ -122,6 +122,7 @@
     </footer>
 
     <script>
+        // 🎯 আপনার হোয়াটসঅ্যাপ নাম্বার (এখানে আপনার নাম্বারটি ঠিক আছে কিনা দেখে নিন)
         const WHATSAPP_NUMBER = "8801611341846";
 
         const defaultProducts = [
@@ -212,6 +213,7 @@
             });
         }
 
+        // 🎯 সরাসরি আপনার হোয়াটসঅ্যাপ ইনবক্সে নিয়ে যাওয়ার মেইন মেকানিজম
         function orderProduct(name, price) {
             const msg = `হ্যালো TrendPulse! 👋\n\nআমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n📦 প্রোডাক্ট: *${name}*\n💰 মূল্য: *৳${price}*\n\nদয়া করে অর্ডার কমপ্লিট করার প্রসেসটি জানান।`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
