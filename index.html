@@ -3,121 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrendPulse | Premium Lifestyle & Fashion Shop</title>
+    <title>TrendPulse | Premium Lifestyle & Luxury Gear</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        :root {
+            --bg-dark: #030712;
+            --primary-glow: #6366f1;
+            --secondary-glow: #a855f7;
+        }
+
         body { 
-            font-family: 'Hind Siliguri', sans-serif; 
-            background-color: #060b13;
+            font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; 
+            background-color: var(--bg-dark);
             overflow-x: hidden;
         }
         
-        /* 🌟 লিংকে ক্লিক করলেই স্ক্রিন জুড়ে আসার জন্য Welcome অ্যানিমেশন */
+        /* 🌟 আল্ট্রা-লাক্সারি প্রি-লোডার */
         #welcome-loader {
             position: fixed;
             inset: 0;
-            background-color: #060b13;
+            background-color: #020617;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
         
-        .glow-text-welcome {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 0 15px #6366f1, 0 0 35px #a855f7, 0 0 60px #6366f1;
-            animation: pulseGlow 1.8s infinite alternate;
-            letter-spacing: 2px;
+        .loader-logo {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            animation: logoFade 1.5s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(0.93); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; }
+        @keyframes logoFade {
+            0% { opacity: 0.3; transform: scale(0.98); filter: blur(2px); }
+            100% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
         }
 
-        /* জ্বলজ্বলে নিয়ন গ্লো বাটন */
-        .neon-glow-btn {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6), 0 0 30px rgba(99, 102, 241, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .neon-glow-btn:hover {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.9), 0 0 50px rgba(99, 102, 241, 0.7);
-            transform: translateY(-3px) scale(1.02);
-        }
-
-        /* মুভিং ব্যাকগ্রাউন্ড নেটওয়ার্ক */
-        .bg-animate {
+        /* 🌌 প্রফেশনাল ৩ডি ব্যাকগ্রাউন্ড গ্রিড */
+        .premium-grid {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 0);
-            background-size: 40px 40px;
-            top: -50%;
-            left: -50%;
-            animation: bgScroll 40s linear infinite;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center top;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
         }
-        @keyframes bgScroll {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(5deg) translate(-50px, -50px); }
+
+        /* ✨ রিচ টেক্সট গ্রেডিয়েন্ট */
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 30%, #a5b4fc 70%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 🛍️ হাই-এন্ড ইন্টারেক্টিভ বাটন */
+        .luxury-btn {
+            position: relative;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 30px rgba(79, 70, 229, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .luxury-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .luxury-btn:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.5), 0 0 80px rgba(79, 70, 229, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .luxury-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* গ্লাসরমরফিজম এফেক্টস */
+        .glass-nav {
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* অরবিটাল লাইট গ্লো ব্যাকগ্রাউন্ড */
+        .glow-sphere {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 100%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            filter: blur(40px);
         }
     </style>
 </head>
-<body class="text-gray-100">
+<body class="text-slate-200 selection:bg-indigo-500 selection:text-white">
 
     <div id="welcome-loader">
-        <h1 class="glow-text-welcome">WELCOME</h1>
-        <p class="text-indigo-400 font-bold mt-4 tracking-widest uppercase text-sm">To TrendPulse Store</p>
-        <div class="mt-6 w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full overflow-hidden">
-            <div class="w-full h-full bg-white rounded-full animate-ping"></div>
+        <div class="text-center">
+            <h1 class="loader-logo tracking-widest font-black">TRENDPULSE</h1>
+            <div class="mt-8 flex items-center justify-center gap-1.5">
+                <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+                <span class="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                <span class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+            </div>
+            <p class="text-slate-500 font-medium text-xs uppercase tracking-widest mt-4">Loading Luxury Experience</p>
         </div>
     </div>
 
-    <nav class="bg-gray-950/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800/80">
+    <nav class="glass-nav sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-white font-black text-xl">TP</span>
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:rotate-6 duration-300">
+                    <span class="text-white font-black text-lg tracking-tighter">TP</span>
                 </div>
-                <span class="text-2xl font-black text-white tracking-tight">Trend<span class="text-indigo-400">Pulse</span></span>
+                <span class="text-xl font-bold text-white tracking-tight">Trend<span class="text-indigo-400">Pulse</span></span>
+            </a>
+            
+            <div class="flex items-center gap-4">
+                <a href="bags.html" class="relative overflow-hidden bg-slate-900 border border-slate-800 hover:border-slate-700 px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide text-slate-300 hover:text-white transition-all duration-300 flex items-center gap-2">
+                    <span>কালেকশন পেজ</span>
+                    <i class="fa-solid fa-arrow-right text-[10px] text-indigo-400"></i>
+                </a>
             </div>
-            <a href="bags.html" class="bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-indigo-600/30 transition">কালেকশন পেজ →</a>
         </div>
     </nav>
 
-    <header class="relative bg-gradient-to-b from-gray-950 to-slate-900 py-32 px-6 overflow-hidden text-center flex items-center justify-center min-h-[80vh]">
-        <div class="bg-animate"></div>
+    <header class="relative min-h-[88vh] flex items-center justify-center px-6 overflow-hidden">
+        <div class="premium-grid"></div>
+        <div class="glow-sphere"></div>
         
-        <div class="max-w-4xl mx-auto relative z-10">
-            <span class="inline-block bg-indigo-500/10 text-indigo-300 px-4 py-1 rounded-full text-xs font-bold mb-6 border border-indigo-500/20 uppercase tracking-widest">Next-Gen Lifestyle Store</span>
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">আপনার প্রতিদিনের লাইফস্টাইলকে <br>করুন আরও <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">ট্রেন্ডি ও আকর্ষণীয়</span></h1>
-            <p class="text-gray-400 text-base md:text-lg mb-10 max-w-2xl mx-auto">টোট ব্যাগ থেকে শুরু করে ভবিষ্যৎ ফ্যাশনের সব লাইফস্টাইল প্রোডাক্টের ওয়ান-স্টপ প্রিমিয়াম হাব।</p>
+        <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8 mt-[-40px]">
+            <div class="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full backdrop-blur-md">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                <span class="text-[11px] font-bold tracking-widest text-slate-400 uppercase">Premium Lifestyle Collection 2026</span>
+            </div>
             
-            <div class="flex justify-center">
-                <a href="bags.html" class="px-12 py-5 rounded-xl text-lg font-bold neon-glow-btn text-white text-center inline-block">কালেকশন দেখুন 🛍️</a>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.15] text-gradient">
+                আপনার প্রতিদিনের ফ্যাশনকে <br>করুন আরও এলিগেন্ট
+            </h1>
+            
+            <p class="text-slate-400 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
+                টোট ব্যাগ থেকে শুরু করে প্রিমিয়াম ফ্যাশন গিয়ারের এক এক্সক্লুসিভ হাব। প্রতিটি প্রোডাক্টে আধুনিক ডিজাইন ও আভিজাত্যের নিখুঁত মিশ্রণ।
+            </p>
+            
+            <div class="pt-6 flex justify-center">
+                <a href="bags.html" class="luxury-btn px-14 py-5 rounded-2xl text-lg font-bold text-white tracking-wide flex items-center gap-3 group z-20">
+                    <span>কালেকশন দেখুন</span>
+                    <i class="fa-solid fa-bag-shopping text-base text-indigo-200 group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 w-full hidden md:block z-10">
+            <div class="max-w-5xl mx-auto grid grid-cols-3 gap-8 px-6 text-center text-slate-500 text-xs uppercase tracking-widest font-semibold">
+                <div class="flex items-center justify-center gap-3"><i class="fa-solid fa-shield-halved text-indigo-400 text-base"></i> Premium Quality Guaranteed</div>
+                <div class="flex items-center justify-center gap-3"><i class="fa-solid fa-truck-fast text-indigo-400 text-base"></i> Fastest Secure Delivery</div>
+                <div class="flex items-center justify-center gap-3"><i class="fa-solid fa-headset text-indigo-400 text-base"></i> 24/7 Dedicated Support</div>
             </div>
         </div>
     </header>
 
+    <footer class="bg-slate-950/40 border-t border-slate-900/60 py-8 text-center text-slate-600 text-xs font-medium tracking-wide">
+        <p>© 2026 TrendPulse Luxury Store. All Rights Reserved.</p>
+    </footer>
+
     <script>
-        // Welcome স্ক্রিনটি ১.৫ সেকেন্ড পর স্মুথলি ভ্যানিশ করার স্ক্রিপ্ট
+        // Welcome লোডার ১.২ সেকেন্ড পর নিখুঁতভাবে রিমুভ হবে
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('welcome-loader');
                 if(loader) {
                     loader.style.opacity = '0';
-                    loader.style.transform = 'scale(1.1)';
-                    setTimeout(() => loader.style.display = 'none', 600);
+                    loader.style.transform = 'translateY(-20px)'; // হালকা উপরের দিকে উঠে যাবে
+                    setTimeout(() => loader.style.display = 'none', 800);
                 }
-            }, 1500); // ১.৫ সেকেন্ড স্বাগতম লেখাটি থাকবে
+            }, 1200);
         });
     </script>
 </body>
