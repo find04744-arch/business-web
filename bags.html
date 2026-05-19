@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Collections | TrendPulse</title>
+    <title>Our Collections | iX-iEra</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,7 +48,6 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* 🔐 অ্যাডমিন বাটনের দৃশ্যমান গ্লসি স্টাইল */
         #admin-control-gate {
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.5);
@@ -70,9 +69,9 @@
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-white font-black text-xl">TP</span>
+                    <span class="text-white font-black text-xl">IX</span>
                 </a>
-                <span class="text-2xl font-black text-white tracking-tight">Trend<span class="text-indigo-400">Pulse</span></span>
+                <span class="text-2xl font-black text-white tracking-tight">iX-<span class="text-indigo-400">iEra</span></span>
             </div>
             <a href="index.html" class="text-sm font-bold text-indigo-400 hover:text-indigo-300 transition">← হোমপেজে ফিরুন</a>
         </div>
@@ -100,8 +99,7 @@
             </button>
         </div>
 
-        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
         <div id="admin-master-panel" class="hidden mt-20 space-y-12">
             <hr class="border-gray-800/60">
@@ -111,7 +109,7 @@
                     <h3 class="text-xl font-black text-indigo-400">⚡ লাইভ ইনভেন্টরি কন্ট্রোল প্যানেল</h3>
                     <button onclick="closeAdminPanel()" class="text-xs bg-red-950 text-red-400 border border-red-900 px-3 py-1 rounded-lg hover:bg-red-900 transition">প্যানেল বন্ধ করুন</button>
                 </div>
-                <p class="text-gray-400 text-xs mb-6">এখানে নতুন প্রোডাক্ট অ্যাড বা ডিলিট করলে তা সরাসরি আপনার ব্রাউজার ডেটায় স্থায়ীভাবে সেভ থাকবে।</p>
+                <p class="text-gray-400 text-xs mb-6">এখানে নতুন প্রোডাক্ট অ্যাড বা ডিলিট করলে তা সরাসরি ডাটাবেজে আপডেট হবে।</p>
                 
                 <form id="add-product-form" class="space-y-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -139,247 +137,68 @@
                     <button type="submit" class="w-full text-white py-4 rounded-xl font-bold neon-green-btn mt-2">নতুন প্রোডাক্ট লাইভ করুন 🚀</button>
                 </form>
             </section>
-
-            <section class="max-w-2xl mx-auto bg-gray-950 border border-red-900/40 p-8 rounded-3xl shadow-xl">
-                <h3 class="text-lg font-black text-red-400 mb-1 text-center">❌ প্রোডাক্ট ডিলিট করার তালিকা</h3>
-                <p class="text-center text-gray-500 text-xs mb-6">যেকোনো প্রোডাক্টের পাশের ডিলিট বাটনে ক্লিক করলেই সেটি কাস্টমার ভিউ থেকে মুছে যাবে</p>
-                
-                <div id="delete-manager-list" class="space-y-3 max-h-64 overflow-y-auto pr-2">
-                    </div>
-            </section>
         </div>
     </main>
 
-    <footer class="bg-gray-950 py-8 text-center text-gray-600 border-t border-gray-900 mt-12">
-        <p>TrendPulse Store © 2026 - All Rights Reserved</p>
-    </footer>
-
     <script>
         const WHATSAPP_NUMBER = "8801611341846";
-        
-        // 🔒 সিক্রেট কি কম্বিনেশন (সুরক্ষিত ডিকোডিং ব্যাকএন্ড)
-        const enc_secret = [116, 114, 101, 110, 100, 55, 52, 52]; 
+        const API_URL = "https://6a0c66445aa893e1015bddd4.mockapi.io/products"; 
 
-        const defaultProducts = [
-            {
-                id: 1,
-                name: "প্রিমিয়াম ফ্লোラル ক্যালিগ্রাফি টোট ব্যাগ",
-                price: 290,
-                oldPrice: 380,
-                image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600"
-            },
-            {
-                id: 2,
-                name: "মিনিমালিস্ট আরবান ব্ল্যাক ব্যাগ",
-                price: 240,
-                oldPrice: 320,
-                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600"
-            }
-        ];
-
-        let products = JSON.parse(localStorage.getItem('tp_live_store_v5')) || defaultProducts;
-        let reviews = JSON.parse(localStorage.getItem('tp_reviews_v5')) || {};
-
-        let loginAttempts = parseInt(localStorage.getItem('tp_login_attempts')) || 0;
-        let lockUntil = parseInt(localStorage.getItem('tp_lock_time')) || 0;
-
-        function checkPass(input) {
-            if (input.length !== enc_secret.length) return false;
-            for (let i = 0; i < input.length; i++) {
-                if (input.charCodeAt(i) !== enc_secret[i]) return false;
-            }
-            return true;
+        async function fetchProducts() {
+            const response = await fetch(API_URL);
+            return await response.json();
         }
 
-        function displayProducts() {
+        async function displayProducts() {
+            const products = await fetchProducts();
             const productList = document.getElementById('product-list');
-            const deleteManagerList = document.getElementById('delete-manager-list');
+            productList.innerHTML = '';
             
-            if (productList) productList.innerHTML = '';
-            if (deleteManagerList) deleteManagerList.innerHTML = '';
-
-            products.forEach(product => {
-                const prodReviews = reviews[product.id] || [];
-                const avgRating = prodReviews.length 
-                    ? (prodReviews.reduce((sum, r) => sum + r.rating, 0) / prodReviews.length).toFixed(1) 
-                    : "5.0";
-
-                const hasDiscount = product.oldPrice && product.oldPrice > product.price;
-
-                if (productList) {
-                    const productCard = `
-                        <div class="cyber-card rounded-2xl overflow-hidden relative flex flex-col justify-between shadow-lg">
-                            ${hasDiscount ? `<div class="absolute top-4 left-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white px-3 py-1 rounded-md text-xs font-black z-10">OFFER</div>` : ''}
-                            
-                            <div class="h-64 overflow-hidden bg-gray-950">
-                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" loading="lazy">
-                            </div>
-
-                            <div class="p-6 flex-1 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-start gap-2 mb-2">
-                                        <h3 class="text-lg font-bold text-white tracking-tight leading-snug">${product.name}</h3>
-                                        <div class="flex items-center text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded-lg text-xs shrink-0">
-                                            <span>★</span> <span class="ml-1">${avgRating}</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center gap-3 mb-6">
-                                        <span class="text-xl font-black text-indigo-400">৳${product.price}</span>
-                                        ${hasDiscount ? `<span class="text-gray-500 line-through text-xs">৳${product.oldPrice}</span>` : ''}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <button onclick="orderProduct('${product.name}', ${product.price})" class="w-full py-3 rounded-xl font-bold neon-glow-btn text-white mb-4 text-sm uppercase tracking-wider">
-                                        🛒 অর্ডার করুন
-                                    </button>
-
-                                    <div class="border-t border-gray-800/80 pt-4">
-                                        <div class="flex gap-2">
-                                            <select id="rate-${product.id}" class="bg-gray-950 border border-gray-700 rounded-lg px-2 text-xs font-bold text-amber-400 outline-none">
-                                                <option value="5">5 ★</option>
-                                                <option value="4">4 ★</option>
-                                                <option value="3">3 ★</option>
-                                            </select>
-                                            <input type="text" id="rev-${product.id}" placeholder="রিভিউ লিখুন..." class="flex-1 bg-gray-950 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-indigo-500">
-                                            <button onclick="addReview(${product.id})" class="bg-gray-800 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-700 transition">সাবমিট</button>
-                                        </div>
-                                        <div class="mt-3 space-y-1.5 max-h-24 overflow-y-auto pr-1">
-                                            ${prodReviews.length === 0 ? `<p class="text-[11px] text-center text-gray-500 italic">কোনো কাস্টমার ফিডব্যাক নেই</p>` : ''}
-                                            ${prodReviews.map(r => `
-                                                <div class="text-[11px] bg-gray-950/60 p-2 rounded-lg border border-gray-800">
-                                                    <span class="text-amber-400 font-bold">★${r.rating}</span> <span class="text-gray-400">${r.text}</span>
-                                                </div>
-                                            `).join('')}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            products.reverse().forEach(product => {
+                productList.innerHTML += `
+                    <div class="cyber-card rounded-2xl overflow-hidden relative flex flex-col justify-between shadow-lg">
+                        <div class="h-64 overflow-hidden bg-gray-950">
+                            <img src="${product.image}" class="w-full h-full object-cover">
                         </div>
-                    `;
-                    productList.innerHTML += productCard;
-                }
-
-                if (deleteManagerList) {
-                    const deleteRow = `
-                        <div class="flex items-center justify-between bg-gray-900 p-3 rounded-xl border border-gray-800 text-sm">
-                            <div class="flex items-center gap-3 truncate mr-2">
-                                <img src="${product.image}" class="w-8 h-8 rounded object-cover shrink-0 bg-black">
-                                <span class="text-gray-300 font-medium truncate">${product.name}</span>
-                                <span class="text-indigo-400 font-bold shrink-0">(৳${product.price})</span>
-                            </div>
-                            <button onclick="deleteProduct(${product.id}, '${product.name}')" class="bg-red-950 hover:bg-red-900 border border-red-700/50 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs transition duration-200 shrink-0">
-                                🗑️ মুছে ফেলুন
-                            </button>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">${product.name}</h3>
+                            <p class="text-xl font-black text-indigo-400 mb-4">৳${product.price}</p>
+                            <button onclick="orderProduct('${product.name}', ${product.price})" class="w-full py-3 rounded-xl font-bold neon-glow-btn text-white">🛒 অর্ডার করুন</button>
                         </div>
-                    `;
-                    deleteManagerList.innerHTML += deleteRow;
-                }
+                    </div>
+                `;
             });
-
-            if (products.length === 0 && deleteManagerList) {
-                deleteManagerList.innerHTML = `<p class="text-xs text-center text-gray-600 italic py-4">স্টোরে কোনো প্রোডাক্ট নেই!</p>`;
-            }
         }
 
-        // 🛡️ নতুন ১০০% অ্যাকুরেট ৫ ঘণ্টা লক প্রোটেকশন গেটওয়ে
         function handleAdminGate() {
-            const currentTime = Date.now();
-
-            if (currentTime < lockUntil) {
-                const msLeft = lockUntil - currentTime;
-                const hoursLeft = Math.floor(msLeft / (1000 * 60 * 60));
-                const minsLeft = Math.ceil((msLeft % (1000 * 60 * 60)) / 60000);
-                
-                let timeString = hoursLeft > 0 ? `${hoursLeft} ঘণ্টা ${minsLeft} মিনিট` : `${minsLeft} মিনিট`;
-                alert(`🛑 সিকিউরিটি লকআউট! পরপর ৩ বার ভুল পাসওয়ার্ড দেওয়ার কারণে অ্যাডমিন পোর্টালটি ব্লক করা হয়েছে। দয়া করে আরও ${timeString} পর চেষ্টা করুন।`);
-                return;
-            }
-
-            const pass = prompt("সিক্রেট অ্যাডমিন পাসওয়ার্ড দিন:");
-            if (!pass) return;
-
-            // নতুন ডাইরেক্ট সেফটি চেক রান করা হচ্ছে
-            if (checkPass(pass.trim())) {
-                loginAttempts = 0;
-                localStorage.removeItem('tp_login_attempts');
-                localStorage.removeItem('tp_lock_time');
-                
+            const pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+            if (pass === "trend744") {
                 document.getElementById('admin-master-panel').classList.remove('hidden');
-                alert("🔓 অ্যাক্সেস গ্র্যান্টেড! লাইভ প্যানেলটি নিচে ওপেন করা হয়েছে।");
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             } else {
-                loginAttempts++;
-                localStorage.setItem('tp_login_attempts', loginAttempts);
-
-                if (loginAttempts >= 3) {
-                    const lockTimeDuration = currentTime + (5 * 60 * 60 * 1000); // ⏱️ ৫ ঘণ্টা সম্পূর্ণ লকআউট
-                    localStorage.setItem('tp_lock_time', lockTimeDuration);
-                    lockUntil = lockTimeDuration;
-                    alert("🛑 অ্যালার্ট! পরপর ৩ বার ভুল পাসওয়ার্ড দেওয়া হয়েছে। সুরক্ষার স্বার্থে এই ডিভাইস থেকে অ্যাডমিন পোর্টাল ৫ ঘণ্টার জন্য সম্পূর্ণ ব্লক করা হলো।");
-                } else {
-                    alert(`❌ ভুল পাসওয়ার্ড! আপনি আর মাত্র ${3 - loginAttempts} বার চেষ্টা করতে পারবেন।`);
-                }
+                alert("ভুল পাসওয়ার্ড!");
             }
         }
 
         function closeAdminPanel() {
             document.getElementById('admin-master-panel').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function deleteProduct(id, name) {
-            if (confirm(`আপনি কি নিশ্চিত যে "${name}" প্রোডাক্টটি চিরতরে ডিলিট করতে চান?`)) {
-                products = products.filter(product => product.id !== id);
-                if (reviews[id]) delete reviews[id];
-                
-                localStorage.setItem('tp_live_store_v5', JSON.stringify(products));
-                displayProducts();
-            }
-        }
-
-        function orderProduct(name, price) {
-            const msg = `হ্যালো TrendPulse! 👋\n\nআমি ওয়েবসাইট থেকে এই প্রোডাক্টটি অর্ডার করতে চাই:\n📦 প্রোডাক্ট: *${name}*\n💰 মূল্য: *৳${price}*\n\nদয়া করে অর্ডার কমপ্লিট করার প্রসেসটি জানান।`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+        document.getElementById('add-product-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('prod-name').value;
-            const price = document.getElementById('prod-price').value;
-            const oldPrice = document.getElementById('prod-old-price').value;
-            const image = document.getElementById('prod-img').value;
-
             const newProd = {
-                id: Date.now(),
-                name: name,
-                price: parseInt(price),
-                oldPrice: oldPrice ? parseInt(oldPrice) : null,
-                image: image
+                name: document.getElementById('prod-name').value,
+                price: document.getElementById('prod-price').value,
+                image: document.getElementById('prod-img').value
             };
-
-            products.unshift(newProd);
-            localStorage.setItem('tp_live_store_v5', JSON.stringify(products));
+            await fetch(API_URL, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify(newProd) 
+            });
+            alert("সফলভাবে যোগ করা হয়েছে!");
             displayProducts();
-            this.reset();
-            alert("🚀 নতুন প্রোডাক্ট সরাসরি স্টোরে লাইভ হয়ে গেছে!");
+            e.target.reset();
         });
-
-        function addReview(id) {
-            const ratingSelect = document.getElementById(`rate-${id}`);
-            const reviewInput = document.getElementById(`rev-${id}`);
-            if(!ratingSelect || !reviewInput) return;
-
-            const rating = parseInt(ratingSelect.value);
-            const text = reviewInput.value.trim();
-            if(!text) return alert("দয়া করে মন্তব্য বক্সে কিছু লিখুন!");
-            
-            if(!reviews[id]) reviews[id] = [];
-            reviews[id].unshift({ rating, text });
-            localStorage.setItem('tp_reviews_v5', JSON.stringify(reviews));
-            displayProducts();
-        }
 
         document.addEventListener('DOMContentLoaded', displayProducts);
     </script>
