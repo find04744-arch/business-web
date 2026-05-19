@@ -34,21 +34,47 @@
             justify-content: center;
             align-items: center;
             transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 20px;
         }
         
-        .loader-logo {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 4px;
-            animation: logoFade 1.5s ease-in-out infinite alternate;
+        /* 🔠 প্রতিটি অক্ষর আলাদাভাবে অ্যানিমেট হওয়ার কাস্টম স্টাইল */
+        .intro-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* মোবাইলে ভেঙে যেন সুন্দর দেখায় */
+            gap: 2px;
         }
 
-        @keyframes logoFade {
-            0% { opacity: 0.3; transform: scale(0.98); filter: blur(2px); }
-            100% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
+        .intro-letter {
+            font-size: 2.2rem; /* মোবাইলের জন্য পারফেক্ট সাইজ */
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+            opacity: 0;
+            transform: translateY(30px) scale(0.5);
+            filter: blur(5px);
+            animation: letterIntro 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* ট্যাবলেট এবং ডেক্সটপের জন্য বড় সাইজ */
+        @media (min-width: 640px) {
+            .intro-letter {
+                font-size: 4.5rem;
+                letter-spacing: 6px;
+            }
+            .intro-container {
+                gap: 0px;
+            }
+        }
+
+        @keyframes letterIntro {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+                text-shadow: 0 0 15px #6366f1, 0 0 30px #a855f7;
+            }
         }
 
         /* 🌌 প্রফেশনাল ৩ডি ব্যাকগ্রাউন্ড গ্রিড */
@@ -129,14 +155,26 @@
 <body class="text-slate-200 selection:bg-indigo-500 selection:text-white">
 
     <div id="welcome-loader">
-        <div class="text-center">
-            <h1 class="loader-logo tracking-widest font-black">TRENDPULSE</h1>
-            <div class="mt-8 flex items-center justify-center gap-1.5">
-                <span class="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
-                <span class="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                <span class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+        <div class="text-center w-full max-w-lg px-4">
+            <div class="intro-container">
+                <span class="intro-letter" style="animation-delay: 0.1s;">T</span>
+                <span class="intro-letter" style="animation-delay: 0.2s;">R</span>
+                <span class="intro-letter" style="animation-delay: 0.3s;">E</span>
+                <span class="intro-letter" style="animation-delay: 0.4s;">N</span>
+                <span class="intro-letter" style="animation-delay: 0.5s;">D</span>
+                <span class="intro-letter" style="animation-delay: 0.6s; color: #a5b4fc;">P</span>
+                <span class="intro-letter" style="animation-delay: 0.7s; color: #a5b4fc;">U</span>
+                <span class="intro-letter" style="animation-delay: 0.8s; color: #a5b4fc;">L</span>
+                <span class="intro-letter" style="animation-delay: 0.9s; color: #a5b4fc;">S</span>
+                <span class="intro-letter" style="animation-delay: 1.0s; color: #a5b4fc;">E</span>
             </div>
-            <p class="text-slate-500 font-medium text-xs uppercase tracking-widest mt-4">Loading Luxury Experience</p>
+            
+            <div class="mt-8 flex items-center justify-center gap-1.5">
+                <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+                <span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                <span class="w-1.5 h-1.5 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+            </div>
+            <p class="text-slate-500 font-medium text-[10px] uppercase tracking-widest mt-4">Loading Luxury Experience</p>
         </div>
     </div>
 
@@ -201,16 +239,16 @@
     </footer>
 
     <script>
-        // Welcome লোডার ১.২ সেকেন্ড পর নিখুঁতভাবে রিমুভ হবে
+        // সব অক্ষরের অ্যানিমেশন শেষ হতে প্রায় ১.৮ সেকেন্ড লাগবে, তাই লোডারটি ২.২ সেকেন্ড পর রিমুভ হবে যেন পুরো এফেক্টটি কাস্টমার দেখতে পায়
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('welcome-loader');
                 if(loader) {
                     loader.style.opacity = '0';
-                    loader.style.transform = 'translateY(-20px)'; // হালকা উপরের দিকে উঠে যাবে
+                    loader.style.transform = 'translateY(-30px)'; // স্মুথ আপওয়ার্ড এক্সিট
                     setTimeout(() => loader.style.display = 'none', 800);
                 }
-            }, 1200);
+            }, 2200); 
         });
     </script>
 </body>
